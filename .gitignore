@@ -2,3 +2,5 @@ TODOS.txt
 .venv/
 *.pyc
 __pycache__/
+*.png
+*.gif
