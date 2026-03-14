@@ -21,22 +21,23 @@ ax.set_title("1D FDTD Simulation")
 ax.legend(loc="upper right", fontsize=10, frameon=True)
 
 
-def update(qTime):
+def update(q):
     global ez, hy
 
     hy[:-1] += (ez[1:] - ez[:-1]) / imp0
     ez[1:] += (hy[1:] - hy[:-1]) * imp0
-    ez[0] = np.exp(-((qTime - 30.0) ** 2) / 100.0)
-    # ez[0] = np.sin(2 * np.pi * qTime / 100.0)  # Example source term
+    ez[0] = np.exp(-((q - 30.0) ** 2) / 100.0)
 
     line_ez.set_ydata(ez)
     line_hy.set_ydata(hy * imp0)
-    ax.set_title(f"1D FDTD Simulation — Zeitpunkt: {qTime}")
+    ax.set_title(f"1D FDTD Simulation — Zeitpunkt: {q}")
     return line_ez, line_hy
 
 
 ani = animation.FuncAnimation(
     fig, update, frames=maxTime, interval=50, blit=False, repeat=False
 )
-ani.save("fdtd_simulation.gif", writer="pillow", fps=20)
+# ani.save("fdtd_simulation.gif", writer="pillow", fps=20)
 plt.show()
+
+# ez[0] = np.sin(2 * np.pi * qTime / 100.0)  # Example source term
